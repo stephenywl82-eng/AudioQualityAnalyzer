@@ -1,53 +1,53 @@
 # Audio Quality Analyzer
 
-本地音频质量分析工具。**音频分析和处理全部在本机完成，不上传任何音频内容**；唯一需要联网的功能是可选的「联网补全元数据」（MusicBrainz / Cover Art Archive）。
+A local audio quality assessment tool for Android. **All analysis and processing happens on your device — your audio is never uploaded.** The only optional network feature is metadata lookups (MusicBrainz / Cover Art Archive).
 
-> 重要原则：本工具的所有「音质」「来源」结论均是基于信号特征的**概率推断线索**，不构成音频质量的判定证明。FLAC 完整性校验例外——它是对字节流的客观比对。
+> **Important:** Every "quality" and "source" verdict in this app is a *probabilistic inference* based on signal characteristics — a clue, **not proof** of audio quality. FLAC integrity verification is the sole exception: it is an objective byte-for-byte comparison.
 
-本仓库仅发布应用程序（APK）与说明文档，**不公开源代码**。
+This repository distributes **binary releases and documentation only** — source code is not public.
 
-## 下载安装
+## Download
 
-- 下载 [最新 APK](AudioQualityAnalyzer-v1.9-release.apk)（v1.9，Android 8.0 / API 26 及以上）直接安装。
-- 应用未上架应用商店，Android 需允许「安装未知来源应用」。
-- 安装包为 release 版（R8 优化，已签名）。
+- Get the [latest APK](AudioQualityAnalyzer-v1.9-release.apk) (v1.9, Android 8.0 / API 26+).
+- The app is not on any app store; Android will ask you to allow installation from unknown sources.
+- The build is a signed, R8-optimized release.
 
-## 功能
+## Features
 
-**分析**
-- 逐声道峰值 / RMS、动态范围、削波比例、直流偏移
-- 频谱截止频率估计、频谱平坦度、频谱断层（spectral cliff）
-- EBU R128 响度（积分响度 / 短时最大 / 真峰值 / ReplayGain）
-- BPM / 调性、波形包络、声谱图、goniometer 相位示波器
-- FLAC 完整性：STREAMINFO 快检 + 逐字节 MD5 校验（解码整曲重打包字节流比对声明值）
-- 编码指纹推断（有损转码线索）
+**Analysis**
+- Per-channel peak / RMS, dynamic range, clipping ratio, DC offset
+- Spectral cutoff estimation, spectral flatness, spectral cliff detection
+- EBU R128 loudness (integrated / short-term max / true peak / ReplayGain)
+- BPM & key detection, waveform envelope, spectrogram, goniometer phase scope
+- FLAC integrity: STREAMINFO quick check + byte-for-byte MD5 verification (decode the full track, repack the byte stream, compare against the declared checksum)
+- Codec fingerprinting (hints about lossy transcoding)
 
-**曲库与管理**
-- 增量扫描本机音频（MediaStore），生成可排序 / 筛选 / 搜索 / 分组的清单
-- 曲库体检：批量检查削波、截断、低响度、来源存疑等问题
-- 元数据编辑：全格式标签与封面读写，三套写回策略（原地写 / 备份恢复 / 另存副本）与文件名修改
-- 批量重命名（模板化，另存副本，不碰原文件）
-- 联网补全：按标题 / 艺术家查询 MusicBrainz 元数据与 Cover Art Archive 封面，仅填空字段
+**Library & management**
+- Incremental scanning of local audio via MediaStore, with a sortable / filterable / searchable / grouped list
+- Library health check: batch-detect clipping, truncation, low loudness, and questionable sources
+- Metadata editor: full-format tag and cover read/write, three write-back strategies (in-place / backup-and-restore / save-as-copy), plus filename editing
+- Batch rename (template-based, saves copies — never touches originals)
+- Online lookup: query MusicBrainz metadata and Cover Art Archive covers by title / artist, filling empty fields only
 
-**导出与试听**
-- 四种导出格式：WAV（16/24/32-bit float）、MP3（LAME 可变码率）、AAC（m4a）、FLAC
-- 重采样、变速 / 变调独立控制、立体声保留、文本标签与封面复制
-- 声谱 / 波形工作台：缩放、拖拽视窗、点击定位播放、A-B 循环
-- 双文件对比：功率谱差值、30 秒同步片段试听、互相关自动对齐、差异信号相减试听、ABX 盲听
-- 外接播放器联动
+**Export & playback**
+- Four export formats: WAV (16 / 24 / 32-bit float), MP3 (LAME VBR), AAC (m4a), FLAC
+- Resampling, independent speed / pitch control, stereo preservation, text tag and cover copying
+- Spectrogram / waveform workbench: zoom, draggable viewport, tap-to-seek playback, A–B loop
+- Two-file comparison: power-spectrum difference, 30-second synced playback, cross-correlation auto-alignment, difference-signal subtraction, ABX blind test
+- External player integration
 
-**其它**
-- 中英双语界面、Material 3 Expressive 设计、跟随系统深浅色 + 壁纸动态取色
-- 分类运行日志（扫描 / 导出 / 错误 / 设置 / 诊断），可筛选、可分享给开发者排查
+**Other**
+- Bilingual UI (English / 中文), Material 3 Expressive design, system light/dark theme with wallpaper-derived color
+- Categorized runtime log (scan / export / error / settings / diagnostics), filterable and shareable for troubleshooting
 
-## 隐私
+## Privacy
 
-- 音频文件、分析结果、标签编辑均在本机处理，不上传音频内容。
-- 「联网补全」为显式用户触发：仅发送查询用的标题 / 艺术家文本到 MusicBrainz，并下载封面图；不发送音频。
-- 运行日志仅存于应用私有目录，通过系统分享由用户主动发出。
+- Audio files, analysis results, and tag edits are all handled locally. No audio is uploaded.
+- Online lookup is explicitly user-triggered: it sends only the title / artist text to MusicBrainz and downloads cover art — never your audio.
+- Runtime logs are stored only in the app's private directory and shared only when you choose to share them.
 
-## 第三方组件与许可
+## Third-party components & licenses
 
-应用使用了开源组件，其许可证与声明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。主要包括 TagLib（LGPL-2.1 / MPL-1.1）、FFmpeg 极简解码（LGPL-2.1+）、LAME 3.100（LGPL）、dr_flac（公共领域 / MIT-0）、libebur128（MIT）、Oboe（Apache-2.0）、Jetpack Compose / Material 3 Expressive（Apache-2.0）。
+The app uses open-source components. Their licenses and notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md), including TagLib (LGPL-2.1 / MPL-1.1), FFmpeg minimal build (LGPL-2.1+), LAME 3.100 (LGPL), dr_flac (Public Domain / MIT-0), libebur128 (MIT), Oboe (Apache-2.0), and Jetpack Compose / Material 3 Expressive (Apache-2.0).
 
-LGPL 组件以动态链接方式使用；如需对应的源码与重链接材料，请通过仓库 Issue 联系维护者。
+LGPL components are dynamically linked. For corresponding source and relinking materials, contact the maintainer via an issue.
