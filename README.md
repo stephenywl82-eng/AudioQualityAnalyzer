@@ -8,9 +8,10 @@ This repository distributes **binary releases and documentation only** — sourc
 
 ## Download
 
-- Get the [latest APK](AudioQualityAnalyzer-v1.9-release.apk) (v1.9, Android 8.0 / API 26+).
+- Get the latest APK from the [Releases page](https://github.com/stephenywl82-eng/AudioQualityAnalyzer/releases) (v1.9, Android 8.0 / API 26+).
+- Direct download: [AudioQualityAnalyzer-v1.9.apk](https://github.com/stephenywl82-eng/AudioQualityAnalyzer/releases/download/v1.9/AudioQualityAnalyzer-v1.9.apk)
 - The app is not on any app store; Android will ask you to allow installation from unknown sources.
-- The build is a signed, R8-optimized release.
+- Each release is a signed, R8-optimized build.
 
 ## Features
 
